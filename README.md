@@ -1,2 +1,4 @@
 SOFTWARE ENGINEERING PROJECT WORK ON REPORT CARD GENERATOR
-![istockphoto-1158358904-612x612-2](https://user-images.githubusercontent.com/66686941/233788625-1d07e2fa-2bab-4e65-97ca-b750c6d201cb.jpg)
+
+
+![Screenshot_1682171275](https://user-images.githubusercontent.com/66686941/233788707-8fcb7963-9e73-43c0-88be-63738a24e99f.png)
