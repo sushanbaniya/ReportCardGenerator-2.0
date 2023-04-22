@@ -12,23 +12,40 @@ class GeneratorScreen extends StatefulWidget {
 }
 
 class _GeneratorScreenState extends State<GeneratorScreen> {
+  var name;
+  var symbolNumber;
+  var math;
+  var physics;
+  var chemistry;
+  var nepali;
+  var english;
+  var _form = GlobalKey<FormState>();
+
+  void saveForm() {
+    _form.currentState!.save();
+    print(name + symbolNumber + math + physics + chemistry + nepali + english);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: MyDrawer(),
       appBar: AppBar(
-          backgroundColor: Theme.of(context).primaryColor,
-          title: Text(
-            'REPORT CARD GENERATOR',
-            style: TextStyle(
-              letterSpacing: 2,
-            ),
+        backgroundColor: Theme.of(context).primaryColor,
+        title: Text(
+          'REPORT CARD GENERATOR',
+          style: TextStyle(
+            letterSpacing: 2,
           ),
-          centerTitle: true,
-          toolbarHeight: 130,
-          shape: RoundedRectangleBorder(
-              borderRadius:
-                  BorderRadius.only(bottomRight: Radius.circular(130)))),
+        ),
+        centerTitle: true,
+        toolbarHeight: 130,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomRight: Radius.circular(130),
+          ),
+        ),
+      ),
       body: Stack(
         children: [
           Icon(Icons.wifi_tethering_outlined,
@@ -63,7 +80,9 @@ class _GeneratorScreenState extends State<GeneratorScreen> {
         onPressed: () {
           showModalBottomSheet(
             // backgroundColor: Theme.of(context).primaryColor,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(79),),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(79),
+            ),
             // isScrollControlled: true,
             context: context,
             builder: (context) {
@@ -72,6 +91,7 @@ class _GeneratorScreenState extends State<GeneratorScreen> {
                   bottom: MediaQuery.of(context).viewInsets.bottom,
                 ),
                 child: Form(
+                  key: _form,
                   child: Padding(
                     padding: const EdgeInsets.all(18.0),
                     child: ListView(
@@ -80,53 +100,77 @@ class _GeneratorScreenState extends State<GeneratorScreen> {
                           decoration: InputDecoration(hintText: 'Enter Name'),
                           textInputAction: TextInputAction.next,
                           keyboardType: TextInputType.name,
+                          onSaved: (newValue) {
+                            name = newValue.toString();
+                          },
                         ),
                         TextFormField(
                           decoration:
                               InputDecoration(hintText: 'Enter Symbol Number'),
                           textInputAction: TextInputAction.next,
-                          keyboardType: TextInputType.number,
+                          keyboardType: TextInputType.number,onSaved: (newValue) {
+                            symbolNumber = newValue.toString();
+                          },
                         ),
                         TextFormField(
                           decoration:
                               InputDecoration(hintText: 'Marks in Math'),
                           textInputAction: TextInputAction.next,
                           keyboardType: TextInputType.number,
+                          onSaved: (newValue) {
+                            math = newValue.toString();
+                          },
                         ),
                         TextFormField(
                           decoration:
                               InputDecoration(hintText: 'Marks in Physics'),
                           textInputAction: TextInputAction.next,
                           keyboardType: TextInputType.number,
+                          onSaved: (newValue) {
+                            physics = newValue.toString();
+                          },
                         ),
                         TextFormField(
                           decoration:
                               InputDecoration(hintText: 'Marks in Chemistry'),
                           textInputAction: TextInputAction.next,
                           keyboardType: TextInputType.number,
+                          onSaved: (newValue) {
+                            chemistry = newValue.toString();
+                          },
                         ),
                         TextFormField(
                           decoration:
                               InputDecoration(hintText: 'Marks in Nepali'),
                           textInputAction: TextInputAction.next,
                           keyboardType: TextInputType.number,
+                          onSaved: (newValue) {
+                            nepali = newValue.toString();
+                          },
                         ),
                         TextFormField(
                           decoration:
                               InputDecoration(hintText: 'Marks in English'),
                           textInputAction: TextInputAction.done,
                           keyboardType: TextInputType.number,
+                          onSaved: (newValue) {
+                            english = newValue.toString();
+                          },
                         ),
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             // maximumSize: Size(39,300),
                             // maximumSize: Size(70,40),
                             // fixedSize: Size(10,40),
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(79),),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(79),
+                            ),
                             backgroundColor: Theme.of(context).primaryColor,
                           ),
                           child: Text('Generate Report Card !! '),
-                          onPressed: () {},
+                          onPressed: () {
+                            saveForm();
+                          },
                         )
                       ],
                     ),
