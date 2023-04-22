@@ -15,13 +15,26 @@ class About extends StatelessWidget {
           backgroundColor: Theme.of(context).primaryColor,
           title: Text('About')),
       body: Center(
-        child: Text(
-          'Software Engineering Project Work',
-          style: TextStyle(
-            color: Theme.of(context).primaryColor,
-            // fontSize: 19
-            letterSpacing: 5
-          ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Software Engineering Project Work',
+              style: TextStyle(
+                color: Theme.of(context).primaryColor,
+                // fontSize: 19
+                letterSpacing: 5
+              ),
+            ),
+            SizedBox(height: 19),
+            Text('REPORT CARD GENERATOR',
+              style: TextStyle(
+                color: Theme.of(context).primaryColor,
+                // fontSize: 19
+                letterSpacing: 5,
+                fontWeight: FontWeight.bold,
+              ),)
+          ],
         ),
       ),
     );
