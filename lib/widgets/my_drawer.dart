@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../screens/about.dart';
 import '../screens/generator_screen.dart';
+import '../screens/display_screen.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
@@ -39,7 +40,9 @@ class MyDrawer extends StatelessWidget {
               ),
             ),
             title: Text('List of Report Cards'),
-            onTap: (){},
+            onTap: (){
+              Navigator.of(context).pushReplacementNamed(FetchDataScreen.routeName);
+            },
           ),
 
            ListTile(

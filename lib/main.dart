@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import './widgets/my_drawer.dart';
 import './screens/about.dart';
 import './screens/generator_screen.dart';
+import './screens/display_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
       routes: {
         GeneratorScreen.routeName: (context) => GeneratorScreen(),
         About.routeName: (context) => About(),
+        FetchDataScreen.routeName: (context) => FetchDataScreen(),
 
       }
     );

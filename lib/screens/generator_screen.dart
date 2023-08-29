@@ -1,4 +1,8 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 import '../widgets/my_drawer.dart';
 
@@ -12,18 +16,75 @@ class GeneratorScreen extends StatefulWidget {
 }
 
 class _GeneratorScreenState extends State<GeneratorScreen> {
-  var name;
-  var symbolNumber;
-  var math;
-  var physics;
-  var chemistry;
-  var nepali;
-  var english;
+  var name1;
+  var symbolNumber1;
+  var math1;
+  var physics1;
+  var chemistry1;
+  var nepali1;
+  var english1;
   var _form = GlobalKey<FormState>();
 
   void saveForm() {
     _form.currentState!.save();
-    print(name + symbolNumber + math + physics + chemistry + nepali + english);
+    print(name1 +
+        symbolNumber1 +
+        math1 +
+        physics1 +
+        chemistry1 +
+        nepali1 +
+        english1);
+
+    _submitForm();
+    Navigator.of(context).pop();
+  }
+
+  Future<void> _submitForm() async {
+    var name = name1;
+    var symbolNumber = symbolNumber1;
+    var mathMarks = math1;
+    var physicsMarks = physics1;
+    var chemistryMarks = chemistry1;
+    var nepaliMarks = nepali1;
+    var englishMarks = english1;
+
+    // Firebase Realtime Database URL
+    String databaseURL =
+        // 'https://your-firebase-project.firebaseio.com/students.json'; // Replace with your Firebase URL
+        'https://reportcardgenerator99-default-rtdb.firebaseio.com/students.json';
+
+    try {
+      final response = await http.post(
+        Uri.parse(databaseURL),
+        body: json.encode({
+          'name': name,
+          'symbolNumber': symbolNumber,
+          'mathMarks': mathMarks,
+          'physicsMarks': physicsMarks,
+          'chemistryMarks': chemistryMarks,
+          'nepaliMarks': nepaliMarks,
+          'englishMarks': englishMarks,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        // Data is successfully saved
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+              content: Text('Entered details has been stored in database')),
+        );
+      } else {
+        // An error occurred
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error: ${response.reasonPhrase}')),
+        );
+      }
+    } catch (error) {
+      // An error occurred
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error: $error')),
+      );
+    }
   }
 
   @override
@@ -100,16 +161,29 @@ class _GeneratorScreenState extends State<GeneratorScreen> {
                           decoration: InputDecoration(hintText: 'Enter Name'),
                           textInputAction: TextInputAction.next,
                           keyboardType: TextInputType.name,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter a valid name';
+                            }
+                            return null;
+                          },
                           onSaved: (newValue) {
-                            name = newValue.toString();
+                            name1 = newValue.toString();
                           },
                         ),
                         TextFormField(
                           decoration:
                               InputDecoration(hintText: 'Enter Symbol Number'),
                           textInputAction: TextInputAction.next,
-                          keyboardType: TextInputType.number,onSaved: (newValue) {
-                            symbolNumber = newValue.toString();
+                          keyboardType: TextInputType.number,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter a valid symbol number';
+                            }
+                            return null;
+                          },
+                          onSaved: (newValue) {
+                            symbolNumber1 = newValue.toString();
                           },
                         ),
                         TextFormField(
@@ -117,8 +191,14 @@ class _GeneratorScreenState extends State<GeneratorScreen> {
                               InputDecoration(hintText: 'Marks in Math'),
                           textInputAction: TextInputAction.next,
                           keyboardType: TextInputType.number,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter a valid marks in math';
+                            }
+                            return null;
+                          },
                           onSaved: (newValue) {
-                            math = newValue.toString();
+                            math1 = newValue.toString();
                           },
                         ),
                         TextFormField(
@@ -126,8 +206,14 @@ class _GeneratorScreenState extends State<GeneratorScreen> {
                               InputDecoration(hintText: 'Marks in Physics'),
                           textInputAction: TextInputAction.next,
                           keyboardType: TextInputType.number,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter a valid marks in physics';
+                            }
+                            return null;
+                          },
                           onSaved: (newValue) {
-                            physics = newValue.toString();
+                            physics1 = newValue.toString();
                           },
                         ),
                         TextFormField(
@@ -135,8 +221,14 @@ class _GeneratorScreenState extends State<GeneratorScreen> {
                               InputDecoration(hintText: 'Marks in Chemistry'),
                           textInputAction: TextInputAction.next,
                           keyboardType: TextInputType.number,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter a valid marks in chemistry';
+                            }
+                            return null;
+                          },
                           onSaved: (newValue) {
-                            chemistry = newValue.toString();
+                            chemistry1 = newValue.toString();
                           },
                         ),
                         TextFormField(
@@ -144,8 +236,14 @@ class _GeneratorScreenState extends State<GeneratorScreen> {
                               InputDecoration(hintText: 'Marks in Nepali'),
                           textInputAction: TextInputAction.next,
                           keyboardType: TextInputType.number,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter a valid marks in nepali';
+                            }
+                            return null;
+                          },
                           onSaved: (newValue) {
-                            nepali = newValue.toString();
+                            nepali1 = newValue.toString();
                           },
                         ),
                         TextFormField(
@@ -153,8 +251,14 @@ class _GeneratorScreenState extends State<GeneratorScreen> {
                               InputDecoration(hintText: 'Marks in English'),
                           textInputAction: TextInputAction.done,
                           keyboardType: TextInputType.number,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter a valid marks in english';
+                            }
+                            return null;
+                          },
                           onSaved: (newValue) {
-                            english = newValue.toString();
+                            english1 = newValue.toString();
                           },
                         ),
                         ElevatedButton(
@@ -169,7 +273,9 @@ class _GeneratorScreenState extends State<GeneratorScreen> {
                           ),
                           child: Text('Generate Report Card !! '),
                           onPressed: () {
-                            saveForm();
+                            if (_form.currentState!.validate()) {
+                              saveForm();
+                            }
                           },
                         )
                       ],
