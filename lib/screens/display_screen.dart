@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:url_launcher/url_launcher.dart';
 
 
 
@@ -86,27 +85,9 @@ class _FetchDataScreenState extends State<FetchDataScreen> {
     return (totalMarks / maximumMarks) * 100;
   }
 
-  void sendReportCardEmail(BuildContext context, Student student) async {
-  final emailSubject = 'Report Card for ${student.name}';
-  final emailBody = 'Math Marks: ${student.mathMarks}\n'
-      'Physics Marks: ${student.physicsMarks}\n';
-      // ... other subjects
-
-  final url = 'mailto:?subject=${Uri.encodeComponent(emailSubject)}&body=${Uri.encodeComponent(emailBody)}';
-
-  if (await canLaunch(url)) {
-    await launch(url);
-  } else {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Failed to open email client.')),
-    );
-  }
-}
-
   
 
-
-
+  
 
   @override
   Widget build(BuildContext context) {
@@ -122,7 +103,8 @@ class _FetchDataScreenState extends State<FetchDataScreen> {
           children: <Widget>[
             SizedBox(height: 20),
             ElevatedButton(
-              style: ElevatedButton.styleFrom(backgroundColor: Theme.of(context).primaryColor),
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: Theme.of(context).primaryColor),
               onPressed: _fetchData,
               child: Text('Tap to View the most recent data !!'),
             ),
@@ -171,11 +153,7 @@ class _FetchDataScreenState extends State<FetchDataScreen> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          ElevatedButton(
-                            onPressed: () => sendReportCardEmail(context, student),
-                            child: Text('Send Report Card via Email'),
-                          ),
-                          
+                         
                         ],
                       ),
                     ),
